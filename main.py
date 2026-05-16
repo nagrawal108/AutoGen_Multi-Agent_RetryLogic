@@ -101,8 +101,7 @@ LOG_FILE = RUN_DIR / "log.jsonl"
 
 def log_event(kind: str, payload: dict):
     """Append a JSON-lines log entry with a UTC timestamp."""
-    rec = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(), "kind":
-kind, **payload}
+    rec = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(), "kind":kind, **payload}
     with LOG_FILE.open("a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n") 
  
@@ -118,7 +117,6 @@ def extract_code_block(text: str) -> str:
  
 def run_py_tests(solution_code: str, test_code: str, timeout_sec: int = 10) -> Tuple[bool, str]:
     """Execute test_solution.py against solution.py in an isolated temp directory.
-
     Returns a (passed, output) tuple where *passed* is True when all assertions
     succeed and the subprocess exits with code 0.
     """
@@ -141,7 +139,6 @@ def run_py_tests(solution_code: str, test_code: str, timeout_sec: int = 10) -> T
 
 async def _ask_async(agent: AssistantAgent, message: str, label: str) -> str:
     """Send a message to an AutoGen agent, wait for the reply, and log it.
-
     A short sleep is inserted before each call to respect API rate limits.
     The response content is extracted from whichever result attribute the
     agent populates (chat_message, messages list, or raw string fallback).
